@@ -28,7 +28,7 @@ int main(){
         while (xend != x2 || yend != y2){
             if (x1 < x2){
                 xtmp += .1;
-                // formula de la recta y = m ( x - x1 ) + y1
+                // point slope form  y = m ( x - x1 ) + y1
                 ytmp = m*(xtmp - (double)x1) + (double)y1;
             }
             if (m == 0){
@@ -36,7 +36,7 @@ int main(){
             }
             if (x1 > x2){
                 xtmp -= .1;
-                // formula de la recta y = m ( x - x1 ) + y1
+                // point slope form  y = m ( x - x1 ) + y1
                 ytmp = m*(xtmp - (double)x1) + (double)y1;
                 
             }
@@ -58,4 +58,3 @@ int main(){
 
     return 0;
 }
-    
