@@ -1,0 +1,26 @@
+() amount of images to create
+
+//this repeat acording with the amount of images (first parameter)
+
+  () () image size X Y
+  () () () RGB color for the line of the obj
+  () () () RGB color for the faces for the obj
+  () () () RGB color for the background
+
+  () () () XYZ translation for the obj
+  () () () XYZ rotation for the obj
+  () () () XYZ expantion for the obj
+
+  () () type of camera and f 
+          - 0 for parallel perspective
+          - 1 for focal perspective parallel to x
+          - 2 for focal perspective parallel to y
+          - 3 for focal perspective parallel to z
+
+
+  () obj file
+  () output file
+
+//
+
+the programs do not accept spaces inside aech parameter
