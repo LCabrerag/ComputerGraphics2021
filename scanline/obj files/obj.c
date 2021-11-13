@@ -98,25 +98,25 @@ int draw_edge(figure* list, color* line_color, edge to_add){
             break;
         case Y_FOCUS:
             matrix_focal_Y(f_global,&pointa_transformed,&pointa);
-            bline.x = pointa.values[1][0];
+            bline.x = pointa.values[0][0];
             bline.y = pointa.values[2][0];
             matrix_focal_Y(f_global,&pointb_transformed,&pointb);
-            eline.x = pointb.values[1][0];
+            eline.x = pointb.values[0][0];
             eline.y = pointb.values[2][0];
             break;
         case Z_FOCUS:
             matrix_focal_Z(f_global,&pointa_transformed,&pointa);
-            bline.x = pointa.values[1][0];
-            bline.y = pointa.values[2][0];
+            bline.x = pointa.values[0][0];
+            bline.y = pointa.values[1][0];
             matrix_focal_Z(f_global,&pointb_transformed,&pointb);
-            eline.x = pointb.values[1][0];
-            eline.y = pointb.values[2][0];
+            eline.x = pointb.values[0][0];
+            eline.y = pointb.values[1][0];
             break;
         default:
-            bline.x = pointa_transformed.values[1][0];
-            bline.y = pointa_transformed.values[2][0];
-            eline.x = pointb_transformed.values[1][0];
-            eline.y = pointb_transformed.values[2][0];
+            bline.x = pointa_transformed.values[0][0];
+            bline.y = pointa_transformed.values[1][0];
+            eline.x = pointb_transformed.values[0][0];
+            eline.y = pointb_transformed.values[1][0];
             break;
     }
     bre_getline(list, bline, eline, line_color);
