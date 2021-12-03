@@ -8,6 +8,10 @@
 #include <math.h>
 #include <pthread.h>
 
+#define PARALLEL 0
+#define X_FOCUS 1
+#define Y_FOCUS 2
+#define Z_FOCUS 3
 
 //MACROS
 struct args{
@@ -42,6 +46,9 @@ void* bre_getline(figure*, coordinate, coordinate, color*,double,double); //bres
 int par_nai_getline(figure*, coordinate, coordinate, color*);
 int par_dda_getline(figure*, coordinate, coordinate, color*);
 int par_bre_getline(figure*, coordinate, coordinate, color*);
+
+matrix hermite_curve_abcd(double Pk, double Pk2,double DPk, double DPk2);
+void hermite_curve(figure* output,matrix pointa, matrix pointb, vector vectora, vector vectorb, int perspective,color line_color);
 
 
 #endif

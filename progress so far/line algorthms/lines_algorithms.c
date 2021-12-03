@@ -254,3 +254,117 @@ int par_dda_getline(figure* output, coordinate pointa, coordinate pointb, color*
 int par_bre_getline(figure* output, coordinate pointa, coordinate pointb, color* linecolor){
     
 }
+
+
+void hermite_curve(figure* output,matrix pointa, matrix pointb, vector vectora, vector vectorb, int perspective,color line_color){
+    int i;
+    coordinate tmp;
+    matrix dproduct;
+    matrix x = hermite_curve_abcd(pointa.values[0][0], pointb.values[0][0],vectora.i,vectorb.i);
+    matrix y = hermite_curve_abcd(pointa.values[1][0], pointb.values[1][0],vectora.j,vectorb.j);
+    matrix z = hermite_curve_abcd(pointa.values[2][0], pointb.values[2][0],vectora.k,vectorb.k);
+    matrix u;
+    init_matrix(&u,4,4);
+    switch (perspective){
+        case X_FOCUS:
+            for (i = 0; i < 101; i++){
+                u.values[0][0] = i/100;
+                u.values[0][1] = i/100;
+                u.values[0][2] = i/100;
+                u.values[0][3] = i/100;
+                multiply_matrix(&u , &y, &dproduct);
+                tmp.x = dproduct.values[0][0];
+                multiply_matrix(&u , &z, &dproduct);
+                tmp.y = dproduct.values[0][0];
+                multiply_matrix(&u , &x, &dproduct);
+                add_point_to_face(output,&line_color,tmp,dproduct.values[0][0]);
+            }
+        break;
+        case Y_FOCUS:
+            for (i = 0; i < 101; i++){
+                u.values[0][0] = i/100;
+                u.values[0][1] = i/100;
+                u.values[0][2] = i/100;
+                u.values[0][3] = i/100;
+                multiply_matrix(&u , &x, &dproduct);
+                tmp.x = dproduct.values[0][0];
+                multiply_matrix(&u , &z, &dproduct);
+                tmp.y = dproduct.values[0][0];
+                multiply_matrix(&u , &y, &dproduct);
+                add_point_to_face(output,&line_color,tmp,dproduct.values[0][0]);
+            }
+        break;
+        case Z_FOCUS:
+            for (i = 0; i < 101; i++){
+                u.values[0][0] = i/100;
+                u.values[0][1] = i/100;
+                u.values[0][2] = i/100;
+                u.values[0][3] = i/100;
+                multiply_matrix(&u , &x, &dproduct);
+                tmp.x = dproduct.values[0][0];
+                multiply_matrix(&u , &y, &dproduct);
+                tmp.y = dproduct.values[0][0];
+                multiply_matrix(&u , &z, &dproduct);
+                add_point_to_face(output,&line_color,tmp,dproduct.values[0][0]);
+            }
+        break;
+        default:
+            for (i = 0; i < 101; i++){
+                u.values[0][0] = i/100;
+                u.values[0][1] = i/100;
+                u.values[0][2] = i/100;
+                u.values[0][3] = i/100;
+                multiply_matrix(&u , &x, &dproduct);
+                tmp.x = dproduct.values[0][0];
+                multiply_matrix(&u , &y, &dproduct);
+                tmp.y = dproduct.values[0][0];
+                multiply_matrix(&u , &z, &dproduct);
+                add_point_to_face(output,&line_color,tmp,dproduct.values[0][0]);
+            }
+        break;
+    }
+}
+
+matrix hermite_curve_abcd(double Pk, double Pk2,double DPk, double DPk2){
+    matrix m;
+    matrix p;
+    matrix out;
+    init_matrix(&m,4,4);
+    m.values[0][0] = 2.2;
+    m.values[0][1] = -2;
+    m.values[0][2] = 1;
+    m.values[0][3] = 1;
+
+    m.values[0][0] = 2;
+    m.values[0][0] = 2;
+    m.values[0][0] = 2;
+    m.values[0][0] = 2;
+
+    m.values[0][0] = 2;
+    m.values[0][0] = 2;
+
+    init_matrix(&p,1,4);
+    p.values[0][0] = Pk;
+    p.values[1][0] = Pk2;
+    p.values[2][0] = DPk;
+    p.values[3][0] = DPk2;
+
+    multiply_matrix(&m,&p,&out);
+    return out;
+}
+
+void bezier_curve(figure* output){
+
+}
+
+/*
+0 0 0 1   a
+1 1 1 1   b
+0 0 1 0   c
+3 2 1 0   d
+
+2 -2 1 1    Pk
+-3 3 -1 -1  Pk+1
+0 0 1 0     DPk
+1 0 0 0     DPk+1
+*/
